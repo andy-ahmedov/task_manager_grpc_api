@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "../api";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service TaskService{
+	rpc Create(CreateRequest) returns (Empty) {}
+	rpc Get(GetRequest) returns (GetResponse) {}
+	rpc GetAll(GetAllRequest) returns (GetAllResponse) {}
+	rpc Delete(DeleteRequest) returns (Empty) {}
+	rpc Update(UpdateRequest) returns (Empty) {}
+}
+
+message DeleteRequest {
+	int64 ID = 1;
+}
+
+message UpdateRequest {
+	int64 ID = 1;
+	ShortTask task = 2;
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+	repeated Task tasks = 1;
+}
+
+message Task {
+	int64 ID = 1;
+	string Name = 2;
+	string Description = 3;
+	string Status = 4;
+	google.protobuf.Timestamp Created_at = 5;
+}
+
+message ShortTask {
+	google.protobuf.StringValue Name = 1;
+	google.protobuf.StringValue Description = 2;
+	google.protobuf.StringValue Status = 3;
+}
+
+
+message GetRequest {
+	int64 ID = 1;
+}
+
+message GetResponse {
+	Task task = 1;
+}
+
+message CreateRequest {
+	string Name = 1;
+	string Description = 2;
+	string Status = 3;
+}
+
+message Empty {
+
+}
